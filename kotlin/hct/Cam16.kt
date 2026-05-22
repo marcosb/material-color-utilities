@@ -265,7 +265,7 @@ private constructor(
 
       // CAM16 chroma, colorfulness, and saturation.
       val huePrime = if (hue < 20.14) hue + 360 else hue
-      val eHue = 0.25 * (cos(Math.toRadians(huePrime) + 2.0) + 3.8)
+      val eHue = 0.25 * (cos(huePrime * PI / 180.0 + 2.0) + 3.8)
       val p1 = 50000.0 / 13.0 * eHue * viewingConditions.nc * viewingConditions.ncb
       val t = p1 * hypot(a, b) / (u + 0.305)
       val alpha = (1.64 - 0.29.pow(viewingConditions.n)).pow(0.73) * t.pow(0.9)
