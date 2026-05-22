@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -123,7 +123,7 @@ private constructor(
   ): DoubleArray {
     val alpha = if (chroma == 0.0 || j == 0.0) 0.0 else chroma / sqrt(j / 100.0)
     val t = (alpha / (1.64 - 0.29.pow(viewingConditions.n)).pow(0.73)).pow(1.0 / 0.9)
-    val hRad = Math.toRadians(hue)
+    val hRad = hue * PI / 180.0
     val eHue = 0.25 * (cos(hRad + 2.0) + 3.8)
     val ac = viewingConditions.aw * (j / 100.0).pow(1.0 / viewingConditions.c / viewingConditions.z)
     val p1 = eHue * (50000.0 / 13.0) * viewingConditions.nc * viewingConditions.ncb
@@ -182,7 +182,6 @@ private constructor(
      *
      * @param argb ARGB representation of a color.
      */
-    @JvmStatic
     fun fromInt(argb: Int): Cam16 {
       return fromIntInViewingConditions(argb, ViewingConditions.DEFAULT)
     }
@@ -196,7 +195,6 @@ private constructor(
     // The RGB => XYZ conversion matrix elements are derived scientific constants. While the values
     // may differ at runtime due to floating point imprecision, keeping the values the same, and
     // accurate, across implementations takes precedence.
-    @SuppressWarnings("FloatingPointLiteralPrecision")
     internal fun fromIntInViewingConditions(
       argb: Int,
       viewingConditions: ViewingConditions,
@@ -250,9 +248,9 @@ private constructor(
 
       // hue
       val atan2 = atan2(b, a)
-      val atanDegrees = Math.toDegrees(atan2)
+      val atanDegrees = atan2 * 180.0 / PI
       val hue = MathUtils.sanitizeDegreesDouble(atanDegrees)
-      val hueRadians = Math.toRadians(hue)
+      val hueRadians = hue * PI / 180.0
 
       // achromatic response to color
       val ac = p2 * viewingConditions.nbb
@@ -313,7 +311,7 @@ private constructor(
       val m = c * viewingConditions.flRoot
       val alpha = c / sqrt(j / 100.0)
       val s = 50.0 * sqrt(alpha * viewingConditions.c / (viewingConditions.aw + 4.0))
-      val hueRadians = Math.toRadians(h)
+      val hueRadians = h * PI / 180.0
       val jstar = (1.0 + 100.0 * 0.007) * j / (1.0 + 0.007 * j)
       val mstar = 1.0 / 0.0228 * ln1p(0.0228 * m)
       val astar = mstar * cos(hueRadians)
@@ -330,7 +328,6 @@ private constructor(
      * @param bstar CAM16-UCS b dimension. Like a* in L*a*b*, it is a Cartesian coordinate on the X
      *   axis.
      */
-    @JvmStatic
     fun fromUcs(jstar: Double, astar: Double, bstar: Double): Cam16 {
       return fromUcsInViewingConditions(jstar, astar, bstar, ViewingConditions.DEFAULT)
     }
@@ -345,7 +342,6 @@ private constructor(
      *   axis.
      * @param viewingConditions Information about the environment where the color was observed.
      */
-    @JvmStatic
     fun fromUcsInViewingConditions(
       jstar: Double,
       astar: Double,

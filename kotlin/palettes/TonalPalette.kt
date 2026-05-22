@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -145,7 +145,6 @@ private constructor(
      * @param argb ARGB representation of a color
      * @return Tones matching that color's hue and chroma.
      */
-    @JvmStatic
     fun fromInt(argb: Int): TonalPalette {
       return fromHct(Hct.fromInt(argb))
     }
@@ -156,7 +155,6 @@ private constructor(
      * @param hct HCT representation of a color.
      * @return Tones matching that color's hue and chroma.
      */
-    @JvmStatic
     fun fromHct(hct: Hct): TonalPalette {
       return TonalPalette(hct.hue, hct.chroma, hct)
     }
@@ -168,7 +166,6 @@ private constructor(
      * @param chroma HCT chroma
      * @return Tones matching hue and chroma.
      */
-    @JvmStatic
     fun fromHueAndChroma(hue: Double, chroma: Double): TonalPalette {
       val keyColor = KeyColor(hue, chroma).create()
       return TonalPalette(hue, chroma, keyColor)

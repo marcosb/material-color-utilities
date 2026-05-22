@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -274,12 +274,10 @@ open class DynamicScheme(
     val DEFAULT_SPEC_VERSION = SpecVersion.SPEC_2021
     val DEFAULT_PLATFORM = Platform.PHONE
 
-    @JvmStatic
     fun from(other: DynamicScheme, isDark: Boolean): DynamicScheme {
       return from(other, isDark, other.contrastLevel)
     }
 
-    @JvmStatic
     fun from(other: DynamicScheme, isDark: Boolean, contrastLevel: Double): DynamicScheme {
       return DynamicScheme(
         other.sourceColorHctList,
@@ -321,7 +319,6 @@ open class DynamicScheme(
      *   hueBreakpoints array, and < the hue at the next index in hueBreakpoints array. Otherwise,
      *   the source color's hue is returned.
      */
-    @JvmStatic
     fun getPiecewiseValue(
       sourceColorHct: Hct,
       hueBreakpoints: DoubleArray,
@@ -362,7 +359,6 @@ open class DynamicScheme(
      *   index in hues array, and < the hue at the next index in hues array. Otherwise, the source
      *   color's hue is returned.
      */
-    @JvmStatic
     fun getRotatedHue(
       sourceColorHct: Hct,
       hueBreakpoints: DoubleArray,

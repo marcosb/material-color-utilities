@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,18 +37,15 @@ object Score {
   private const val CUTOFF_CHROMA = 5.0
   private const val CUTOFF_EXCITED_PROPORTION = 0.01
 
-  @JvmStatic
   fun score(colorsToPopulation: Map<Int, Int>): List<Int> {
     // Fallback color is Google Blue.
     return score(colorsToPopulation, 4, 0xff4285f4.toInt(), true)
   }
 
-  @JvmStatic
   fun score(colorsToPopulation: Map<Int, Int>, desired: Int): List<Int> {
     return score(colorsToPopulation, desired, 0xff4285f4.toInt(), true)
   }
 
-  @JvmStatic
   fun score(colorsToPopulation: Map<Int, Int>, desired: Int, fallbackColorArgb: Int): List<Int> {
     return score(colorsToPopulation, desired, fallbackColorArgb, true)
   }
@@ -67,7 +64,6 @@ object Score {
    *   input colors were not suitable for a theme, a default fallback color will be provided, Google
    *   Blue.
    */
-  @JvmStatic
   fun score(
     colorsToPopulation: Map<Int, Int>,
     desired: Int,

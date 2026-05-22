@@ -51,12 +51,5 @@ kotlin {
             }
         }
 
-        // @JvmStatic is a JVM-only annotation. Provide a no-op stub on non-JVM targets
-        // so the library compiles without modification. The JVM/Android target picks up
-        // the real annotation from the Kotlin stdlib; these targets get the stub instead.
-        val jvmStubs = "kmpStubs"
-        iosMain   { kotlin.srcDir(jvmStubs) }
-        jsMain    { kotlin.srcDir(jvmStubs) }
-        wasmJsMain { kotlin.srcDir(jvmStubs) }
     }
 }

@@ -555,7 +555,7 @@ object HctSolver {
 
   internal fun inverseChromaticAdaptation(adapted: Double): Double {
     val adaptedAbs = abs(adapted)
-    val base = Math.max(0.0, 27.13 * adaptedAbs / (400.0 - adaptedAbs))
+    val base = max(0.0, 27.13 * adaptedAbs / (400.0 - adaptedAbs))
     return sign(adapted) * base.pow(1.0 / 0.42)
   }
 

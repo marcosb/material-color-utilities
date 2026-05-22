@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -78,7 +78,6 @@ private constructor(
      *   such as knowing an apple is still red in green light. default = false, the eye does not
      *   perform this process on self-luminous objects like displays.
      */
-    @JvmStatic
     fun make(
       whitePoint: DoubleArray,
       adaptingLuminance: Double,
@@ -145,7 +144,6 @@ private constructor(
      *
      * Default viewing conditions have a lstar of 50, midgray.
      */
-    @JvmStatic
     fun defaultWithBackgroundLstar(lstar: Double): ViewingConditions {
       return make(
         ColorUtils.whitePointD65(),
