@@ -19,8 +19,6 @@ import dynamiccolor.ColorSpec.SpecVersion
 import hct.Hct
 import palettes.TonalPalette
 import utils.MathUtils
-import java.text.DecimalFormat
-import java.util.Locale
 import kotlin.math.min
 
 /**
@@ -106,20 +104,6 @@ open class DynamicScheme(
 
   fun getArgb(dynamicColor: DynamicColor): Int {
     return dynamicColor.getArgb(this)
-  }
-
-  override fun toString(): String {
-    val mode = if (isDark) "dark" else "light"
-    val platformName = platform.name.lowercase(Locale.ENGLISH)
-    val contrast = DecimalFormat("0.0").format(contrastLevel)
-    val extraColors =
-      if (sourceColorHctList.size <= 1) {
-        ""
-      } else {
-        "sourceColorHctList=[${sourceColorHctList.joinToString(", ") { it.toString() }}], "
-      }
-    return "Scheme: variant=${variant.name}, mode=$mode, platform=$platformName, " +
-      "contrastLevel=$contrast, seed=$sourceColorHct, ${extraColors}specVersion=$specVersion"
   }
 
   private val dynamicColors = MaterialDynamicColors()

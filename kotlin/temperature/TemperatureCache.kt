@@ -18,9 +18,6 @@ package temperature
 import hct.Hct
 import utils.ColorUtils
 import utils.MathUtils
-import java.util.ArrayList
-import java.util.Collections
-import java.util.HashMap
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -111,7 +108,7 @@ class TemperatureCache(val input: Hct) {
     val startHue = input.hue.roundToInt()
     val startHct = hctsByHue[startHue]
     var lastTemp = getRelativeTemperature(startHct)
-    val allColors: MutableList<Hct> = ArrayList()
+    val allColors = mutableListOf<Hct>()
     allColors.add(startHct)
     var absoluteTotalTempDelta = 0f
     for (i in 0..359) {
@@ -158,7 +155,7 @@ class TemperatureCache(val input: Hct) {
         break
       }
     }
-    val answers: MutableList<Hct> = ArrayList()
+    val answers = mutableListOf<Hct>()
     answers.add(input)
     val ccwCount = floor(((count - 1.0) / 2.0)).toInt()
     for (i in 1 until ccwCount + 1) {
@@ -217,16 +214,16 @@ class TemperatureCache(val input: Hct) {
       if (_precomputedHctsByHue != null) {
         return _precomputedHctsByHue!!
       }
-      val hcts: MutableList<Hct> = ArrayList()
+      val hcts = mutableListOf<Hct>()
       var hue = 0.0
       while (hue <= 360.0) {
         val colorAtHue = Hct.from(hue, input.chroma, input.tone)
         hcts.add(colorAtHue)
         hue += 1.0
       }
-      val unmodifiableList = Collections.unmodifiableList(hcts)
-      _precomputedHctsByHue = unmodifiableList
-      return unmodifiableList
+      val immutableList = hcts.toList()
+      _precomputedHctsByHue = immutableList
+      return immutableList
     }
 
   /**
@@ -239,7 +236,7 @@ class TemperatureCache(val input: Hct) {
       if (_precomputedHctsByTemp != null) {
         return _precomputedHctsByTemp!!
       }
-      val hcts: MutableList<Hct> = ArrayList(hctsByHue)
+      val hcts = hctsByHue.toMutableList()
       hcts.add(input)
       hcts.sortWith(compareBy { tempsByHct[it]!! })
       _precomputedHctsByTemp = hcts
@@ -252,9 +249,9 @@ class TemperatureCache(val input: Hct) {
       if (_precomputedTempsByHct != null) {
         return _precomputedTempsByHct!!
       }
-      val allHcts: MutableList<Hct> = ArrayList(hctsByHue)
+      val allHcts = hctsByHue.toMutableList()
       allHcts.add(input)
-      val temperaturesByHct: MutableMap<Hct, Double> = HashMap()
+      val temperaturesByHct = mutableMapOf<Hct, Double>()
       for (hct in allHcts) {
         temperaturesByHct[hct] = rawTemperature(hct)
       }
